@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+  ═══════════════════════════════════════════════════════════════
+  TATTOO & PIERCING STUDIO — single-file website template
+  Black & Gold edition · bilingual RO/EN · no build step needed
+
+  HOW TO CUSTOMIZE (≈5 minutes):
+  1. Search for "SITE CONFIG"  → your studio name, monogram, contact
+     info, opening hours, social links, form endpoint, default language.
+  2. Search for "CONTENT —"    → replace the placeholder photos
+     (Unsplash, temporary!) and portfolio/artist/price data.
+  3. Search for "THEME —"      → optionally swap the gold palette
+     (chrome / emerald / crimson alternates included, copy-paste).
+  4. All UI strings live in the I18N dictionary (ro / en).
+  5. Deploy: upload this one file (plus your images) to any static
+     host — Netlify Drop, Vercel, GitHub Pages, classic hosting.
+  Full instructions: see TEMPLATE-GUIDE.md shipped with this file.
+  ═══════════════════════════════════════════════════════════════
+-->
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR ET OR — Tattoo & Piercing Studio · București</title>
+<meta name="description" content="Studio de tatuaje și piercing în București. Artă custom, igienă clinică, artiști premiați. Tattoo & piercing studio in Bucharest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@200;300;400;500;600;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<style>
+{{STYLES}}
+</style>
+</head>
+<body>
+
+<!-- ambient layers -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- scroll progress -->
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<!-- custom cursor -->
+<div class="cursor" aria-hidden="true">
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"><span class="cursor-label" id="cursorLabel"></span></div>
+</div>
+
+<!-- preloader -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <div class="pre-mark">
+      <svg viewBox="0 0 120 120" class="pre-seal">
+        <circle cx="60" cy="60" r="54" fill="none" stroke="url(#goldStrokePre)" stroke-width="1.5" class="pre-circle"/>
+        <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(212,169,74,.35)" stroke-width="1" stroke-dasharray="2 5" class="pre-circle2"/>
+        <defs>
+          <linearGradient id="goldStrokePre" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f3dc8f"/><stop offset=".5" stop-color="#d4a94a"/><stop offset="1" stop-color="#8c6b2f"/>
+          </linearGradient>
+        </defs>
+        <text x="60" y="72" text-anchor="middle" class="pre-mono" id="preMono">N·O</text>
+      </svg>
+    </div>
+    <div class="pre-word" id="preWord">NOIR&nbsp;ET&nbsp;OR</div>
+    <div class="pre-track"><span id="preBar"></span></div>
+    <div class="pre-count" id="preCount">00</div>
+  </div>
+</div>
+
+<!-- ink page transition -->
+<div class="ink-transition" id="inkTransition" aria-hidden="true">
+  <div class="ink-fill" id="inkFill"></div>
+  <div class="ink-mark" id="inkMark">
+    <span class="ink-mono" id="inkMono">N·O</span>
+    <span class="ink-route" id="inkRoute"></span>
+  </div>
+</div>
+
+<!-- navigation -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#/home" data-route="home" data-magnet>
+      <span class="brand-seal"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="30" cy="30" r="22.5" fill="none" stroke="currentColor" stroke-width=".7" stroke-dasharray="1.5 4" opacity=".7"/><text x="30" y="37" text-anchor="middle" class="seal-txt" id="sealTxt">N·O</text></svg></span>
+      <span class="brand-word">
+        <em class="brand-name" data-cfg="name"></em>
+        <em class="brand-sub" data-cfg="tagline"></em>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="principal">
+      <a href="#/home" data-route="home" data-i18n="nav.home"></a>
+      <a href="#/services" data-route="services" data-i18n="nav.services"></a>
+      <a href="#/gallery" data-route="gallery" data-i18n="nav.gallery"></a>
+      <a href="#/artists" data-route="artists" data-i18n="nav.artists"></a>
+      <a href="#/about" data-route="about" data-i18n="nav.about"></a>
+      <a href="#/contact" data-route="contact" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Schimbă limba / Switch language">
+        <span class="lang-opt" data-lang="ro">RO</span>
+        <span class="lang-opt" data-lang="en">EN</span>
+        <span class="lang-thumb" aria-hidden="true"></span>
+      </button>
+      <a class="btn btn-gold btn-nav" href="#/contact" data-route="contact" data-magnet><span data-i18n="nav.cta"></span></a>
+      <button class="burger" id="burger" type="button" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-bg"></div>
+  <nav class="menu-links" aria-label="meniu mobil">
+    <a href="#/home" data-route="home"><i>01</i><b data-i18n="nav.home"></b></a>
+    <a href="#/services" data-route="services"><i>02</i><b data-i18n="nav.services"></b></a>
+    <a href="#/gallery" data-route="gallery"><i>03</i><b data-i18n="nav.gallery"></b></a>
+    <a href="#/artists" data-route="artists"><i>04</i><b data-i18n="nav.artists"></b></a>
+    <a href="#/about" data-route="about"><i>05</i><b data-i18n="nav.about"></b></a>
+    <a href="#/contact" data-route="contact"><i>06</i><b data-i18n="nav.contact"></b></a>
+  </nav>
+  <div class="menu-foot">
+    <span id="menuHours"></span>
+    <span class="menu-dot">✦</span>
+    <span data-cfg="city"></span>
+  </div>
+</div>
+
+<!-- view container -->
+<main id="view" tabindex="-1"></main>
+
+<!-- footer -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="f-brand">
+      <div class="f-logo"><span class="f-seal" data-cfg="mark"></span><em data-cfg="name"></em></div>
+      <p data-i18n="footer.tag"></p>
+      <div class="f-socials">
+        <a data-cfg-social="instagram" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-magnet><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a>
+        <a data-cfg-social="facebook" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-magnet><svg viewBox="0 0 24 24"><path d="M14 8h2.5V5H14a4 4 0 0 0-4 4v2H7.5v3H10v6h3v-6h2.5l.5-3H13V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></a>
+        <a data-cfg-social="tiktok" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-magnet><svg viewBox="0 0 24 24"><path d="M15 4v8.5a4.5 4.5 0 1 1-4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M15 4c.4 2.4 2 4 4.5 4.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h5 data-i18n="footer.explore"></h5>
+      <a href="#/services" data-route="services" data-i18n="nav.services"></a>
+      <a href="#/gallery" data-route="gallery" data-i18n="nav.gallery"></a>
+      <a href="#/artists" data-route="artists" data-i18n="nav.artists"></a>
+      <a href="#/about" data-route="about" data-i18n="nav.about"></a>
+    </div>
+    <div class="f-col">
+      <h5 data-i18n="footer.visit"></h5>
+      <span data-cfg="address1"></span>
+      <span data-cfg="address2"></span>
+      <a data-cfg="phone" href="#"></a>
+      <a data-cfg="email" href="#"></a>
+    </div>
+    <div class="f-col">
+      <h5 data-i18n="footer.hours"></h5>
+      <div id="fHours" style="display:flex;flex-direction:column;gap:11px"></div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>© <span data-cfg="year"></span> <span data-cfg="name"></span><span id="demoTag"> · <span data-i18n="footer.demo"></span></span></span>
+    <span class="f-note" id="imgNote" data-i18n="footer.imgnote"></span>
+  </div>
+</footer>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="lb-backdrop" id="lbBackdrop"></div>
+  <figure class="lb-stage">
+    <div class="lb-frame"><img id="lbImg" alt=""></div>
+    <figcaption class="lb-meta">
+      <span class="lb-cat" id="lbCat"></span>
+      <span class="lb-title" id="lbTitle"></span>
+      <span class="lb-count" id="lbCount"></span>
+    </figcaption>
+  </figure>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Următor"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Închide"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
